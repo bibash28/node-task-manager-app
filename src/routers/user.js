@@ -102,7 +102,6 @@ router.patch("/users/me", auth, async (request, response) => {
     }
 })
 
-//this api is not needed now
 // router.delete("/users/:id", async (request, response) => {
 //     const _id = request.params.id
 //     try {
