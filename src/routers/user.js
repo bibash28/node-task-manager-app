@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require("../models/user.js") 
+const auth = require('../middleware/auth.js')
 const router = new express.Router()
 
 router.post("/users", async (request, response) => {
@@ -23,16 +24,34 @@ router.post("/users/login", async (request, response) => {
     }
 })
 
-router.get("/users", async (request, response) => {
+router.post('/users/logout', auth, async (req, res) => {
     try {
-        const user = await User.find({})
-        response.status(200).send(user)
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+        res.send()
     } catch (error) {
-        response.status(400).send(error)
+        res.status(500).send(error)
     }
 })
 
-router.get("/users/:id", async (request, response) => {
+router.post('/users/logoutAll', auth, async (req, res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+
+router.get("/users/me", auth, async (request, response) => {
+     response.send(request.user) 
+})
+
+router.get("/users/:id", auth, async (request, response) => {
     const _id = request.params.id
     try {
         const user = await User.findById(_id)
@@ -43,7 +62,7 @@ router.get("/users/:id", async (request, response) => {
     }
 })
 
-router.patch("/users/:id", async (request, response) => {
+router.patch("/users/:id", auth, async (request, response) => {
     const _id = request.params.id
     const updates = Object.keys(request.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
