@@ -51,47 +51,81 @@ router.get("/users/me", auth, async (request, response) => {
      response.send(request.user) 
 })
 
-router.get("/users/:id", auth, async (request, response) => {
-    const _id = request.params.id
-    try {
-        const user = await User.findById(_id)
-        if (!user) return response.status(404).send()
-        response.status(200).send(user)
-    } catch (error) {
-        response.status(400).send(error)
-    }
-})
+//this api is not needed now
+// router.get("/users/:id", auth, async (request, response) => {
+//     const _id = request.params.id
+//     try {
+//         const user = await User.findById(_id)
+//         if (!user) return response.status(404).send()
+//         response.status(200).send(user)
+//     } catch (error) {
+//         response.status(400).send(error)
+//     }
+// })
 
-router.patch("/users/:id", auth, async (request, response) => {
-    const _id = request.params.id
+//this api is not needed now
+// router.patch("/users/:id", auth, async (request, response) => {
+//     const _id = request.params.id
+//     const updates = Object.keys(request.body)
+//     const allowedUpdates = ['name', 'email', 'password', 'age']
+//     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+//     if (!isValidOperation) response.status(400).send({ error: "Invalid data" })
+
+//     try {
+//         const user = await User.findById(_id)
+//         updates.forEach((update) => user[update] = request.body[update])
+//         await user.save()
+//         //const user = await User.findByIdAndUpdate(_id, request.body, { new : true, runValidators: true})
+//         if (!user) return response.status(404).send()
+//         response.status(200).send(user)
+//     } catch (error) {
+//         response.status(400).send(error)
+//     }
+// })
+
+router.patch("/users/me", auth, async (request, response) => { 
     const updates = Object.keys(request.body)
-    const allowedUpdates = ['name', 'email', 'password', 'age']
+    const allowedUpdates = ['name', 'password', 'age']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) response.status(400).send({ error: "Invalid data" })
 
     try {
-        const user = await User.findById(_id)
-        updates.forEach((update) => user[update] = request.body[update])
-        await user.save()
-        //const user = await User.findByIdAndUpdate(_id, request.body, { new : true, runValidators: true})
-        if (!user) return response.status(404).send()
-        response.status(200).send(user)
+        //const user = await User.findById(request.user._id)
+        updates.forEach((update) => request.user[update] = request.body[update])
+        await request.user.save() 
+        //if (!user) return response.status(404).send() //removed because we know user is already logged in => auth middleware
+        response.status(200).send(request.user)
     } catch (error) {
         response.status(400).send(error)
     }
 })
 
-router.delete("/users/:id", async (request, response) => {
-    const _id = request.params.id
+//this api is not needed now
+// router.delete("/users/:id", async (request, response) => {
+//     const _id = request.params.id
+//     try {
+//         const user = await User.findByIdAndDelete(_id)
+//         if (!user) return response.status(404).send()
+//         response.status(200).send(user)
+//     } catch (error) {
+//         response.status(400).send(error)
+//     }
+// })
+
+
+router.delete("/users/me", auth, async (request, response) => { 
     try {
-        const user = await User.findByIdAndDelete(_id)
-        if (!user) return response.status(404).send()
-        response.status(200).send(user)
+        // const user = await User.findByIdAndDelete(request.user._id)
+        // if (!user) return response.status(404).send()
+        await request.user.remove()
+        response.send(request.user)
     } catch (error) {
         response.status(400).send(error)
     }
 })
+
 
 
 module.exports = router
