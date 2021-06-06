@@ -5,6 +5,8 @@ const { findOne } = require('../models/task.js')
 const router = new express.Router()
 
 //GET /tasks?completed=true
+//GET /tasks?limit=10&skip=3
+//GET /tasks?sortBy=createdAt:desc
 router.get("/tasks", auth, async (request, response) => {
     try {
         //const task = await Task.find({owner : request.user._id})
@@ -12,13 +14,24 @@ router.get("/tasks", auth, async (request, response) => {
         //await request.user.populate('tasks').execPopulate()
 
         const match = {}
+        const sort = {}
 
         //if(request.query.completed) match.completed = request.query.completed === 'true' ? true : false
-        if(request.query.completed) match.completed = request.query.completed === 'true'
+        if (request.query.completed) match.completed = request.query.completed === 'true'
+
+        if (request.query.sortBy) {
+            const parts = request.query.sortBy.split(':')
+            sort[parts[0]] = parts[1] === 'desc' ? -1 : 1 
+        }
 
         await request.user.populate({
             path: 'tasks',
-            match
+            match,
+            options: {
+                limit: parseInt(request.query.limit),
+                skip: parseInt(request.query.skip),
+                sort
+            }
         }).execPopulate()
 
         const task = request.user.tasks
