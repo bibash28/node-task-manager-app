@@ -1,0 +1,59 @@
+[33mcommit ee681aed0c040c749e4cd76e69f2629221c7d34c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sun Jun 6 18:36:35 2021 +0545
+
+    set env
+
+[33mcommit c5137dd69dfafc3cbda4ef3df64f1d8d2991799d[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sun Jun 6 15:21:32 2021 +0545
+
+    working with yser image
+
+[33mcommit 907dbfc413b951f9ea19207817fe88966738ba6d[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sun Jun 6 09:54:48 2021 +0545
+
+    filter, paginate and sort
+
+[33mcommit d73c2074fdf08de5df775437752721067a045157[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sun Jun 6 09:20:33 2021 +0545
+
+    filtering task data
+
+[33mcommit 2e38f862409d835a258a8cb3cc5e61c01cf54bca[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sun Jun 6 08:35:45 2021 +0545
+
+    add timestamps - created and updated
+
+[33mcommit ab083036cf1abaa31d73db37af75d21a677fa785[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sat Jun 5 23:15:44 2021 +0545
+
+    user-task relationship setup
+
+[33mcommit 06cf78962335224063022e4ac2e66f893e016f2c[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sat Jun 5 21:35:40 2021 +0545
+
+    updating me apis
+
+[33mcommit b4817ec5ea2c01b3a55ed83632e29e1f2df23540[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sat Jun 5 21:22:21 2021 +0545
+
+    hiding private data
+
+[33mcommit c4510ff9d14114dc13f2633695a54f5538da3dfc[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sat Jun 5 20:53:05 2021 +0545
+
+    auth middleware - auth to fetch data - logout
+
+[33mcommit 02400188780cc6c285708fa2338bb213de9dc337[m
+Author: Bibash Shrestha <bibashshrestha@gmail.com>
+Date:   Sat Jun 5 18:13:39 2021 +0545
+
+    login signup with jwt
