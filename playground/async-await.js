@@ -8,7 +8,7 @@ const add = (a, b) => new Promise((resolve, reject) => {
         if(a < 0 || b < 0)
           return reject("Numbers must be non-negative")
         resolve(a + b) 
-    }, 500)
+    }, 2000)
 })
 
 const doWork = async () => {
